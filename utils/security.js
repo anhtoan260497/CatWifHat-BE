@@ -15,7 +15,6 @@ const decryptEnv = () => {
     const envText = fs.readFileSync('envEncrypted.txt', 'utf8')
     const bytes = cryptoJS.AES.decrypt(envText, password)
     const originalText = bytes.toString(cryptoJS.enc.Utf8)
-    console.log(originalText)
     fs.writeFileSync('.env', originalText, { encoding: 'utf8', flag: 'w+' })
 }
 
