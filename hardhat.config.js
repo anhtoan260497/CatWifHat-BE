@@ -16,10 +16,15 @@ module.exports = {
       {
         version: "0.8.7",
       },
-      // {
-      //   version: "0.6.7",
-      //   settings: {},
-      // },
+      {
+        version: "0.8.20",
+        settings: {},
+      },
     ],
   },
+  namedAccounts : {
+    deployer : {
+      default : 0
+    }
+  }
 };

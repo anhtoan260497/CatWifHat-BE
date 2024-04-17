@@ -9,9 +9,22 @@ This is the backend of the CatWifHat Project. It will be integrated with ***Bina
 
 [Contract Scan From BSC Scan](https://bscscan.com/address/0x1Dbd1FbFB0eb339c14f63f908a4aba27B58B6fab#code)
 
-#### It already verified
+### It already verified
 
 
 ## License
 
 MIT
+
+
+## How to use 
+
+### Decrypt ENV : 
+
+Create a txt file in source code and name it 'password.txt'. After that type the password and press Ctrl + S. Then open terminal type this command 
+
+```
+yarn hardhat run scripts/decryptedEnv.js
+```
+
+The .env file will appear in your folder
