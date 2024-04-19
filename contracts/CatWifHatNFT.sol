@@ -8,8 +8,8 @@ error CatWifHatNFT__MaximumNftExceed();
 error CatWifHatNFT__MinterAlreadyHasAToken();
 
 contract CatWifHatNFT is ERC721 {
-    string s_tokenURI;
-    uint256 s_tokenId;
+    string private s_tokenURI;
+    uint256 public s_tokenId;
 
     constructor(string memory _tokenURI) ERC721("CatWifHat", "CatWifHat") {
         s_tokenURI = _tokenURI;
@@ -19,12 +19,13 @@ contract CatWifHatNFT is ERC721 {
         return s_tokenURI;
     }
 
-    function mintNFT(address _minter) external {
+    function mintNFT() external {
         if (s_tokenId > 100) revert CatWifHatNFT__MaximumNftExceed();
         IERC721 nft = IERC721(address(this));
-        if (nft.balanceOf(_minter) >= 1)
+        if (nft.balanceOf(msg.sender) >= 1)
             revert CatWifHatNFT__MinterAlreadyHasAToken();
-        _safeMint(_minter, s_tokenId);
+        _safeMint(msg.sender, s_tokenId);
         s_tokenId++;
     }
+
 }
