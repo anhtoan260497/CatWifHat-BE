@@ -27,5 +27,4 @@ contract CatWifHatNFT is ERC721 {
         _safeMint(msg.sender, s_tokenId);
         s_tokenId++;
     }
-
 }

@@ -25,6 +25,9 @@ module.exports = {
   namedAccounts : {
     deployer : {
       default : 0
+    },
+    buyer : {
+      default : 1
     }
   }
 };
