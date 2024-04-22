@@ -4,6 +4,7 @@ pragma solidity ^0.8.7;
 import "@openzeppelin/contracts/interfaces/IERC721.sol";
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/token/ERC721/utils/ERC721Holder.sol"; // https://forum.openzeppelin.com/t/fail-with-error-erc721-transfer-to-non-erc721receiver-implementer/28138/5
+import 'hardhat/console.sol';
 
 error CatWifHatMarketplace__PriceMustBeAboveZero();
 error CatWifHatMarketplace__NotOwnedThisNFT();
@@ -97,10 +98,10 @@ contract CatWifHatMarketplace is ReentrancyGuard, ERC721Holder {
     function buyItem(
         address nftAddress,
         uint256 tokenId
-    ) external payable isListed(nftAddress, tokenId) {
+    ) external payable isListed(nftAddress, tokenId) nonReentrant {
         if (s_listing[nftAddress][tokenId].price > msg.value)
             revert CatWifHatMarketplace__NotEnoughMoney();
-        s_proceeds[msg.sender] += msg.value;
+        s_proceeds[s_listing[nftAddress][tokenId].seller] += msg.value;
         delete s_listing[nftAddress][tokenId];
         IERC721 nft = IERC721(nftAddress);
         nft.safeTransferFrom(address(this), msg.sender, tokenId);
@@ -144,7 +145,7 @@ contract CatWifHatMarketplace is ReentrancyGuard, ERC721Holder {
         return s_listing[nftAddress][tokenId];
     }
 
-    function getProceed() external view returns (uint256) {
-        return s_proceeds[msg.sender];
+    function getProceed(address _address) external view returns (uint256) {
+        return s_proceeds[_address];
     }
 }
