@@ -1351,23 +1351,23 @@ interface IUniswapV2Factory {
 contract CatWifhat is Ownable, ERC20 {
     using SafeERC20 for IERC20;
 
-    uint256 public marketingTaxBuy;
-    uint256 public marketingTaxSell;
-    uint256 public marketingTaxTransfer;
+    uint256 public marketingTaxBuy; // tax for buying
+    uint256 public marketingTaxSell; // tax for selling
+    uint256 public marketingTaxTransfer; // tax for transfer
+ 
+    uint256 public immutable denominator; // basis point
 
-    uint256 public immutable denominator;
+    address public marketingWallet; // wallet to receive tax   
 
-    address public marketingWallet;
+    bool private swapping; // swap status
+    uint256 public swapTokensAtAmount; // swap amount
+    bool public isSwapBackEnabled; // swap back
 
-    bool private swapping;
-    uint256 public swapTokensAtAmount;
-    bool public isSwapBackEnabled;
+    IUniswapV2Router02 public immutable uniswapV2Router; // router
+    address public immutable uniswapV2Pair; // pair 
 
-    IUniswapV2Router02 public immutable uniswapV2Router;
-    address public immutable uniswapV2Pair;
-
-    mapping(address => bool) private _isAutomatedMarketMakerPair;
-    mapping(address => bool) private _isExcludedFromFees;
+    mapping(address => bool) private _isAutomatedMarketMakerPair; // automated market maker
+    mapping(address => bool) private _isExcludedFromFees; //  excluded from fees
 
     modifier inSwap() {
         swapping = true;
