@@ -1384,8 +1384,8 @@ contract CatWifhat is Ownable, ERC20 {
     event UpdateAutomatedMarketMakerPair(address indexed pair, bool status);
     event UpdateExcludeFromFees(address indexed account, bool isExcluded);
 
-    constructor(address _owner) ERC20("PoorWifHat", "POOR") Ownable(_owner) {
-        _mint(owner(), 100_000 * (10 ** 18));
+    constructor(address _owner) ERC20("CatWifhat", "CatWif") Ownable(_owner) {
+        _mint(owner(), 100_000_000 * (10 ** 18));
 
         marketingTaxBuy = 500;
         marketingTaxSell = 500;
